@@ -45,48 +45,21 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
 
     private fun com.kryptopass.nooro.core.network.model.Current.toDomain(): Current {
         return Current(
-            cloud = cloud,
             condition = condition?.toDomain(),
-            dewpointC = dewpointC,
-            dewpointF = dewpointF,
             feelslikeC = feelslikeC,
             feelslikeF = feelslikeF,
-            gustKph = gustKph,
-            gustMph = gustMph,
-            heatindexC = heatindexC,
-            heatindexF = heatindexF,
             humidity = humidity,
-            isDay = isDay,
-            lastUpdated = lastUpdated,
-            lastUpdatedEpoch = lastUpdatedEpoch,
-            precipIn = precipIn,
-            precipMm = precipMm,
-            pressureIn = pressureIn,
-            pressureMb = pressureMb,
             tempC = tempC,
             tempF = tempF,
-            uv = uv,
-            visKm = visKm,
-            visMiles = visMiles,
-            windDegree = windDegree,
-            windDir = windDir,
-            windKph = windKph,
-            windMph = windMph,
-            windchillC = windchillC,
-            windchillF = windchillF
+            uv = uv
         )
     }
 
     private fun com.kryptopass.nooro.core.network.model.Location.toDomain(): Location {
         return Location(
             country = country,
-            lat = lat,
-            localtime = localtime,
-            localtimeEpoch = localtimeEpoch,
-            lon = lon,
             name = name,
-            region = region,
-            tzId = tzId
+            region = region
         )
     }
 }

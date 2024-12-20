@@ -54,24 +54,13 @@ class WeatherRemoteDataSourceImplTest {
         val expectedWeather =
             Weather(
                 com.kryptopass.nooro.core.domain.entity.Current(
-                    cloud = 0,
                     condition = null,
-                    dewpointC = 0.0,
-                    dewpointF = 0.0,
                     feelslikeC = 0.0,
                     feelslikeF = 0.0,
-                    gustKph = 0.0,
-                    gustMph = 0.0,
-                    heatindexC = 0.0,
-                    heatindexF = 0.0,
-                    humidity = 0,
-                    isDay = 0,
-                    lastUpdated = "2021-09-01 12:00"
+                    humidity = 0
                 ),
                 com.kryptopass.nooro.core.domain.entity.Location(
                     country = "UK",
-                    lat = 51.51,
-                    lon = -0.13,
                     name = "London",
                     region = city
                 )

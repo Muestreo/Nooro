@@ -9,6 +9,7 @@ class FetchWeatherByCityUseCase(
     configuration: Configuration,
     private val weatherRepository: WeatherRepository
 ) : UseCase<FetchWeatherByCityUseCase.Request, FetchWeatherByCityUseCase.Response>(configuration) {
+
     override fun process(request: Request): Flow<Response> =
         weatherRepository.getWeather(request.city)
             .map {

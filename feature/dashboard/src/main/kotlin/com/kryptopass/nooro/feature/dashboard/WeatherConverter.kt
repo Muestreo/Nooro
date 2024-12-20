@@ -12,7 +12,14 @@ class WeatherConverter @Inject constructor(
 
     override fun convertSuccess(data: FetchWeatherByCityUseCase.Response): WeatherModel {
         return WeatherModel(
-            "data.location.name"
+            region = data.weather.location?.region,
+            tempF = data.weather.current?.tempF,
+            tempC = data.weather.current?.tempC,
+            condition = data.weather.current?.condition?.let { ConditionModel(it.code, it.icon, it.text) },
+            humidity = data.weather.current?.humidity,
+            uv = data.weather.current?.uv,
+            feelsLikeF = data.weather.current?.feelslikeF,
+            feelsLikeC = data.weather.current?.feelslikeC
         )
     }
 }
