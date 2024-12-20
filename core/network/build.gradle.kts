@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.dagger.hilt.android)
@@ -14,8 +16,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        val weatherApiKey = fetchWeatherApiKey()
+        buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -38,6 +46,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+
     implementation(libs.androidx.core.ktx)
 
     implementation(libs.bundles.network)
@@ -49,4 +60,21 @@ dependencies {
 
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+}
+
+fun fetchWeatherApiKey(): String {
+    lateinit var properties: Properties
+    var weatherApiKey = ""
+
+    if (File("local.properties").exists()) {
+        properties =
+            Properties().apply {
+                load(project.rootProject.file("local.properties").inputStream())
+            }
+        weatherApiKey = properties.getProperty("WEATHER_API_KEY")
+    } else {
+        System.getenv("WEATHER_API_KEY")
+    }
+
+    return weatherApiKey
 }

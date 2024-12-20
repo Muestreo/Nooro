@@ -46,6 +46,9 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:network"))
     implementation(project(":feature:dashboard"))
 
     implementation(libs.androidx.core.ktx)
