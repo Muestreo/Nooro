@@ -42,9 +42,13 @@ dependencies {
     implementation(project(":core:domain"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.gson)
     implementation(libs.hilt.android)
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
 
     ksp(libs.hilt.compiler)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
 
