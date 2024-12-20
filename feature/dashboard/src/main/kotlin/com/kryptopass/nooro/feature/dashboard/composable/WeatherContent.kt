@@ -12,10 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.kryptopass.nooro.core.network.model.WeatherResponse
+import com.kryptopass.nooro.core.domain.entity.Weather
 
 @Composable
-fun WeatherContent(weather: WeatherResponse) {
+fun WeatherContent(weather: Weather) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

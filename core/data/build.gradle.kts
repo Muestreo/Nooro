@@ -16,9 +16,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -41,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
+    implementation(project(":core:domain"))
 
     implementation(libs.androidx.core.ktx)
 
