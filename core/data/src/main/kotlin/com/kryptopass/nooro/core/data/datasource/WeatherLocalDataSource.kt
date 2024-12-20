@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherLocalDataSource {
     fun getCurrentWeather(city: String): Flow<Weather>
 
-    suspend fun addCurrentWeather(weatherResponse: Weather)
+    suspend fun addCurrentWeather(weather: Weather)
 }

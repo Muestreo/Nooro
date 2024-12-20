@@ -1,14 +1,14 @@
 package com.kryptopass.nooro.feature.dashboard
 
 data class WeatherModel(
-    val region: String?,
-    val tempF: Double?,
-    val tempC: Double?,
     val condition: ConditionModel?,
-    val humidity: Int?,
-    val uv: Double?,
+    val feelsLikeC: Double?,
     val feelsLikeF: Double?,
-    val feelsLikeC: Double?
+    val humidity: Int?,
+    val region: String?,
+    val tempC: Double?,
+    val tempF: Double?,
+    val uv: Double?,
 )
 
 data class ConditionModel(

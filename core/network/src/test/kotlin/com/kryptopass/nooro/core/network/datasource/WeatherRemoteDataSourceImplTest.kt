@@ -73,7 +73,7 @@ class WeatherRemoteDataSourceImplTest {
     }
 
     @Test
-    fun testGetLaunchesThrowsError() = runTest {
+    fun testGetCurrentWeatherThrowsError() = runTest {
         whenever(service.getCurrentWeather(apiKey, city)).thenThrow(RuntimeException())
 
         dataSource.getCurrentWeather(city).catch {
