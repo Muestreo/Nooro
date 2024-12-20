@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kryptopass.nooro.feature.dashboard.state.WeatherUiState
-import com.kryptopass.nooro.feature.dashboard.viewmodel.WeatherViewModel
+import com.kryptopass.nooro.feature.dashboard.WeatherViewModel
 
 @Composable
 fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
@@ -22,7 +22,7 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
     Column(modifier = Modifier.fillMaxSize()) {
         // Search bar at the top
         SearchBar(onSearch = { city ->
-            viewModel.fetchWeather(city) // Fetch weather for the entered city
+            //viewModel.fetchWeather(city) // Fetch weather for the entered city
         })
 
         Box(
@@ -34,16 +34,21 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
                 is WeatherUiState.Loading -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
+
                 is WeatherUiState.Empty -> {
                     EmptyStateContent()
                 }
+
                 is WeatherUiState.Success -> {
                     WeatherContent(weather = (uiState as WeatherUiState.Success).weather)
                 }
+
                 is WeatherUiState.Error -> {
                     ErrorScreen(
                         message = (uiState as WeatherUiState.Error).message,
-                        onRetry = { viewModel.fetchWeather("London") }
+                        onRetry = {
+                            //viewModel.fetchWeather("London")
+                        }
                     )
                 }
             }

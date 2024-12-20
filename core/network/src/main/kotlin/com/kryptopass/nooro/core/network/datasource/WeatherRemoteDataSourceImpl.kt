@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class WeatherRemoteDataSourceImpl @Inject constructor(
     private val weatherService: WeatherService
-): WeatherRemoteDataSource {
+) : WeatherRemoteDataSource {
 
     override fun getCurrentWeather(city: String): Flow<Weather> = flow {
         try {

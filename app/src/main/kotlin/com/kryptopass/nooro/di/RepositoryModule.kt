@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.di
 
+import com.kryptopass.nooro.core.data.datasource.WeatherLocalDataSource
 import com.kryptopass.nooro.core.data.datasource.WeatherRemoteDataSource
 import com.kryptopass.nooro.core.domain.repository.WeatherRepository
 import com.kryptopass.nooro.core.data.repository.WeatherRepositoryImpl
@@ -14,8 +15,10 @@ object RepositoryModule {
 
     @Provides
     fun provideWeatherRepository(
+        localDataSource: WeatherLocalDataSource,
         remoteDataSource: WeatherRemoteDataSource
     ): WeatherRepository = WeatherRepositoryImpl(
+        localDataSource,
         remoteDataSource
     )
 }
