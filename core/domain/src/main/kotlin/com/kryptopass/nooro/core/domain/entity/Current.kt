@@ -1,33 +1,12 @@
 package com.kryptopass.nooro.core.domain.entity
 
 data class Current(
-    val cloud: Int? = 0,
     val condition: Condition? = Condition(),
-    val dewpointC: Double? = 0.0,
-    val dewpointF: Double? = 0.0,
     val feelslikeC: Double? = 0.0,
     val feelslikeF: Double? = 0.0,
-    val gustKph: Double? = 0.0,
-    val gustMph: Double? = 0.0,
-    val heatindexC: Double? = 0.0,
-    val heatindexF: Double? = 0.0,
     val humidity: Int? = 0,
-    val isDay: Int? = 0,
-    val lastUpdated: String? = "",
-    val lastUpdatedEpoch: Int? = 0,
-    val precipIn: Double? = 0.0,
-    val precipMm: Double? = 0.0,
-    val pressureIn: Double? = 0.0,
-    val pressureMb: Double? = 0.0,
+    val region: String? = "",
     val tempC: Double? = 0.0,
     val tempF: Double? = 0.0,
-    val uv: Double? = 0.0,
-    val visKm: Double? = 0.0,
-    val visMiles: Double? = 0.0,
-    val windDegree: Int? = 0,
-    val windDir: String? = "",
-    val windKph: Double? = 0.0,
-    val windMph: Double? = 0.0,
-    val windchillC: Double? = 0.0,
-    val windchillF: Double? = 0.0
+    val uv: Double? = 0.0
 )
