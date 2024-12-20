@@ -23,7 +23,10 @@ fun WeatherContent(weather: Weather) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "City: ${weather.location?.name}", style = MaterialTheme.typography.headlineLarge)
+        Text(
+            text = "City: ${weather.location?.name}",
+            style = MaterialTheme.typography.headlineLarge
+        )
         Text(text = "Temperature: ${weather.current?.tempC}°C")
         Text(text = "Condition: ${weather.current?.condition?.text}")
         AsyncImage(

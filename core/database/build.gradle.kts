@@ -3,11 +3,10 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.kryptopass.nooro.feature.dashboard"
+    namespace = "com.kryptopass.nooro.core.database"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -17,9 +16,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildFeatures {
-        compose = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,18 +38,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.coil)
-
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose)
-
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
 
     ksp(libs.hilt.compiler)

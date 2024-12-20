@@ -1,7 +1,8 @@
 package com.kryptopass.nooro.core.domain.repository
 
 import com.kryptopass.nooro.core.domain.entity.Weather
+import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
-    suspend fun getWeather(city: String): Weather
+    fun getWeather(city: String): Flow<Weather>
 }
