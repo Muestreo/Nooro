@@ -35,11 +35,12 @@ fun WeatherContent(weatherModel: WeatherModel) {
             placeholder = painterResource(R.drawable.ic_placeholder)
         )
 
+        // NOTE: use TextStyle.copy to dynamically adjust font sizes
+        //       for temperature values based on screen size or data significance
         Text(
             style = MaterialTheme.typography.headlineLarge,
             text = "${weatherModel.name}",
         )
-
         Text(
             modifier = Modifier.padding(vertical = 8.dp),
             style = MaterialTheme.typography.displayLarge,

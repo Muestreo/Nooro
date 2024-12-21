@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.shared.common.state
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 abstract class MviViewModel<T : Any, S : UiState<T>, A : UiAction, E : UiSingleEvent> :
@@ -32,7 +34,11 @@ abstract class MviViewModel<T : Any, S : UiState<T>, A : UiAction, E : UiSingleE
     init {
         viewModelScope.launch {
             actionFlow.collect {
-                handleAction(it)
+                try {
+                    handleAction(it)
+                } catch (e: Exception) {
+                    Log.e(TAG, "ERROR HANDLING ACTION: $it", e)
+                }
             }
         }
     }
@@ -54,7 +60,8 @@ abstract class MviViewModel<T : Any, S : UiState<T>, A : UiAction, E : UiSingleE
     // NOTE: update state
     fun submitState(state: S) {
         viewModelScope.launch {
-            _uiStateFlow.value = state
+            // _uiStateFlow.value = state      // NOTE: single-threaded
+            _uiStateFlow.update { state }   // NOTE: support atomic updates
         }
     }
 
@@ -63,5 +70,9 @@ abstract class MviViewModel<T : Any, S : UiState<T>, A : UiAction, E : UiSingleE
         viewModelScope.launch {
             _singleEventFlow.send(event)
         }
+    }
+
+    companion object {
+        private const val TAG = "MviViewModel"
     }
 }

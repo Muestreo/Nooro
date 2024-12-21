@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun <T : Any> CommonScreen(
     state: UiState<T>,
+    onRetry: () -> Unit = {},
     onSuccess: @Composable (T) -> Unit
 ) {
     when (state) {
@@ -30,10 +31,10 @@ fun <T : Any> CommonScreen(
         }
 
         is UiState.Error -> {
-//            ErrorScreen(
-//                message = state.errorMessage,
-//                onRetry = { viewModel.fetchWeather("London") }
-//            )
+            ErrorScreen(
+                message = state.errorMessage,
+                onRetry = onRetry
+            )
         }
 
         is UiState.Success -> {

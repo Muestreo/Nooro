@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.feature.dashboard
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
 import com.kryptopass.nooro.shared.common.state.MviViewModel
@@ -20,17 +21,22 @@ class WeatherViewModel @Inject constructor(
 
     override fun handleAction(action: WeatherUiAction) {
         // NOTE: not needed now as SearchBar invokes fetching weather...
+        //       use case for paging or list of cities
+        when (action) {
+            is WeatherUiAction.Load -> loadWeather(action.name)
+        }
     }
 
     fun loadWeather(name: String) {
         viewModelScope.launch {
-            usecase.execute(FetchWeatherByCityUseCase.Request(name))
-                .map {
-                    converter.convert(it)
-                }
-                .collect {
-                    submitState(it)
-                }
+            try {
+                usecase.execute(FetchWeatherByCityUseCase.Request(name))
+                    .map { converter.convert(it) }
+                    .collect { submitState(it) }
+            } catch (e: Exception) {
+                submitState(UiState.Error("Failed to load weather data"))
+                Log.e(TAG, "ERROR LOADING WEATHER: ${e.message}")
+            }
         }
     }
 

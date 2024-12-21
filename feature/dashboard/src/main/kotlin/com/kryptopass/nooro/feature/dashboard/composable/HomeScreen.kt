@@ -25,12 +25,14 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        // Spacer(modifier = Modifier.height(24.dp))
         SearchBar(onSearch = { name ->
             viewModel.loadWeather(name)
         })
 
-        CommonScreen(uiState) { model ->
+        CommonScreen(
+            state = uiState,
+            onRetry = { viewModel.loadWeather("London") } // Retry action
+        ) { model ->
             WeatherContent(model)
         }
     }
