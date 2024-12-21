@@ -1,4 +1,4 @@
-# App Module
+# App Module: Presentation Layer of Clean Architecture (includes feature modules)
 
 ## Responsibilities
 

@@ -1,9 +1,9 @@
 package com.kryptopass.nooro.di
 
-import com.kryptopass.nooro.core.data.datasource.WeatherLocalDataSource
-import com.kryptopass.nooro.core.data.datasource.WeatherRemoteDataSource
+import com.kryptopass.nooro.core.repository.datasource.WeatherLocalDataSource
+import com.kryptopass.nooro.core.repository.datasource.WeatherRemoteDataSource
 import com.kryptopass.nooro.core.domain.repository.WeatherRepository
-import com.kryptopass.nooro.core.data.repository.WeatherRepositoryImpl
+import com.kryptopass.nooro.core.repository.repository.WeatherRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

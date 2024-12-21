@@ -46,10 +46,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    implementation(project(":core:database"))
     implementation(project(":core:domain"))
-    implementation(project(":core:network"))
+    implementation(project(":core:local"))
+    implementation(project(":core:remote"))
+    implementation(project(":core:repository"))
     implementation(project(":feature:dashboard"))
     implementation(project(":feature:search"))
     implementation(project(":shared:common"))
