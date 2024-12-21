@@ -1,4 +1,4 @@
-package com.kryptopass.nooro.core.database
+package com.kryptopass.nooro.feature.search
 
 import org.junit.Test
 

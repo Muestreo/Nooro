@@ -1,14 +1,13 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.kryptopass.nooro.core.network"
+    namespace = "com.kryptopass.nooro.feature.search"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -16,14 +15,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        val weatherApiKey = fetchWeatherApiKey()
-        buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,43 +36,26 @@ android {
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
-    testOptions {
-        unitTests.isReturnDefaultValues = true
-    }
 }
 
 dependencies {
+    implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.bundles.network)
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
-    implementation(project(":core:database"))
 
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.mockito.kotlin)
 
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-}
-
-fun fetchWeatherApiKey(): String {
-    lateinit var properties: Properties
-    var weatherApiKey = ""
-
-    if (File("local.properties").exists()) {
-        properties =
-            Properties().apply {
-                load(project.rootProject.file("local.properties").inputStream())
-            }
-        weatherApiKey = properties.getProperty("WEATHER_API_KEY")
-    } else {
-        System.getenv("WEATHER_API_KEY")
-    }
-
-    return weatherApiKey
 }

@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.core.common.state
 
+import CommonModuleTests
 import com.kryptopass.nooro.core.domain.entity.Result
 import com.kryptopass.nooro.core.domain.entity.UseCaseException
 import org.junit.Assert.assertEquals
@@ -7,6 +8,10 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
+@CommonModuleTests
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+annotation class CommonResultConverterTests
 class CommonResultConverterTest {
 
     private val converter = object : CommonResultConverter<String, String>() {
