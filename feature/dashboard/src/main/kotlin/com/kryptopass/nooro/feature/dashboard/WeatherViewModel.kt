@@ -16,7 +16,7 @@ class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Loading)
+    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Empty)
     val uiState: StateFlow<WeatherUiState> = _uiState
 
     fun fetchWeather(region: String) {
@@ -28,7 +28,7 @@ class WeatherViewModel @Inject constructor(
                     _uiState.value = WeatherUiState.Success(response)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "FAILED TO FETCH WEATHER DATA: ${e.message}")
+                Log.e(TAG, "FAILED TO FETCH WEATHER DATA: ${e.message}", e)
                 _uiState.value = WeatherUiState.Error("Failed to fetch weather data")
             }
         }
