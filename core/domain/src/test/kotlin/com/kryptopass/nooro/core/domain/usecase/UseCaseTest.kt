@@ -18,9 +18,12 @@ import org.mockito.kotlin.mock
 @OptIn(ExperimentalCoroutinesApi::class)
 class UseCaseTest {
 
-    private val configuration = UseCase.Configuration(UnconfinedTestDispatcher())
     private val request = mock<UseCase.Request>()
     private val response = mock<UseCase.Response>()
+
+    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcherProvider = TestDispatcherProvider(testDispatcher)
+    private val configuration = UseCase.Configuration(testDispatcherProvider, TestLogger())
 
     private lateinit var useCase: UseCase<UseCase.Request, UseCase.Response>
 

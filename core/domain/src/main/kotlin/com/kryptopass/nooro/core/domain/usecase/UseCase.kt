@@ -2,7 +2,8 @@ package com.kryptopass.nooro.core.domain.usecase
 
 import com.kryptopass.nooro.core.domain.entity.Result
 import com.kryptopass.nooro.core.domain.entity.UseCaseException
-import kotlinx.coroutines.CoroutineDispatcher
+import com.kryptopass.nooro.core.domain.services.DispatcherProvider
+import com.kryptopass.nooro.core.domain.services.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
@@ -15,16 +16,25 @@ abstract class UseCase<I : UseCase.Request, O : UseCase.Response>(
         .map {
             Result.Success(it) as Result<O>
         }
-        .flowOn(configuration.dispatcher)
-        .catch {
-            emit(Result.Error(UseCaseException.createFromThrowable(it)))
+        .flowOn(configuration.dispatcher.io)
+        .catch { throwable ->
+            val useCaseException = UseCaseException.createFromThrowable(throwable)
+            configuration.logger.e(TAG, "ERROR WITH USE CASE EXECUTE: ${useCaseException.message}", useCaseException)
+            emit(Result.Error(useCaseException))
         }
 
     internal abstract fun process(request: I): Flow<O>
 
-    class Configuration(val dispatcher: CoroutineDispatcher)
+    class Configuration(
+        val dispatcher: DispatcherProvider,
+        val logger: Logger
+    )
 
     interface Request
 
     interface Response
+
+    companion object {
+        private val TAG = UseCase::class.java.simpleName
+    }
 }
