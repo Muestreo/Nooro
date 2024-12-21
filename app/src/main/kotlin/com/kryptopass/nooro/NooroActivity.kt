@@ -11,9 +11,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.kryptopass.nooro.core.common.nav.HOME_SCREEN
-import com.kryptopass.nooro.core.common.nav.SEARCH_SCREEN
 import com.kryptopass.nooro.feature.dashboard.composable.HomeScreen
+import com.kryptopass.nooro.shared.common.nav.HOME_SCREEN
+import com.kryptopass.nooro.shared.common.nav.SEARCH_SCREEN
 import com.kryptopass.nooro.ui.theme.NooroTheme
 import dagger.hilt.android.AndroidEntryPoint
 

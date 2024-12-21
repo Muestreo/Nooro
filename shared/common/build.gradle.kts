@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.kotlin.android)
@@ -7,23 +7,16 @@ plugins {
 }
 
 android {
-    namespace = "com.kryptopass.nooro"
+    namespace = "com.kryptopass.nooro.shared.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.kryptopass.nooro"
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -46,15 +39,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    implementation(project(":core:database"))
     implementation(project(":core:domain"))
-    implementation(project(":core:network"))
-    implementation(project(":feature:dashboard"))
-    implementation(project(":feature:search"))
-    implementation(project(":shared:common"))
-
-    implementation(libs.androidx.core.ktx)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
@@ -66,12 +51,9 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.kotlin)
 
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-
-    debugImplementation(libs.androidx.ui.test.manifest)
-    debugImplementation(libs.androidx.ui.tooling)
 }
