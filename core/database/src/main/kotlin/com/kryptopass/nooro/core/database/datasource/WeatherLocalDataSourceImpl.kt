@@ -5,6 +5,7 @@ import com.kryptopass.nooro.core.data.datasource.WeatherLocalDataSource
 import com.kryptopass.nooro.core.database.room.WeatherDao
 import com.kryptopass.nooro.core.database.room.WeatherEntity
 import com.kryptopass.nooro.core.database.room.toEntity
+import com.kryptopass.nooro.core.domain.entity.Condition
 import com.kryptopass.nooro.core.domain.entity.Current
 import com.kryptopass.nooro.core.domain.entity.Location
 import com.kryptopass.nooro.core.domain.entity.Weather
@@ -33,7 +34,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addCurrentWeather(weather: Weather) {
+    override suspend fun addWeather(weather: Weather) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "ADD WEATHER TO ROOM: $weather")
             val weatherEntity = weather.toEntity()
@@ -50,7 +51,6 @@ class WeatherLocalDataSourceImpl @Inject constructor(
                 feelslikeC = weatherEntity.feelsLikeC ?: 0.0,
                 feelslikeF = weatherEntity.feelsLikeF ?: 0.0,
                 humidity = weatherEntity.humidity ?: 0,
-                region = weatherEntity.region.orEmpty(),
                 tempC = weatherEntity.tempC ?: 0.0,
                 tempF = weatherEntity.tempF ?: 0.0,
                 uv = weatherEntity.uv ?: 0.0

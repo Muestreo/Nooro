@@ -33,7 +33,7 @@ class WeatherRepositoryImpl(
             Log.d(TAG, "REMOTE WEATHER: $remoteWeather")
 
             withContext(Dispatchers.IO) {
-                localDataSource.addCurrentWeather(remoteWeather)
+                localDataSource.addWeather(remoteWeather)
             }
             Log.d(TAG, "REMOTE ADDED TO LOCAL.")
 

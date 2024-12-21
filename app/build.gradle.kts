@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:network"))
     implementation(project(":feature:dashboard"))
+    implementation(project(":feature:search"))
 
     implementation(libs.androidx.core.ktx)
 

@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.core.common.state
 
+import CommonModuleTests
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestDispatcher
@@ -14,6 +15,10 @@ import org.junit.Ignore
 import org.junit.Test
 import org.mockito.kotlin.mock
 
+@CommonModuleTests
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+annotation class BaseMVIViewModelTests
 class MviViewModelTest {
 
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
