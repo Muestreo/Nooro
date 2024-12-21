@@ -1,8 +1,8 @@
 package com.kryptopass.nooro.feature.dashboard
 
 import android.content.Context
-import com.kryptopass.nooro.core.common.state.CommonResultConverter
 import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
+import com.kryptopass.nooro.shared.common.state.CommonResultConverter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -12,14 +12,14 @@ class WeatherConverter @Inject constructor(
 
     override fun convertSuccess(data: FetchWeatherByCityUseCase.Response): WeatherModel {
         return WeatherModel(
-            region = data.weather.location?.region,
+            condition = data.weather.current?.condition?.let { ConditionModel(it.icon) },
+            feelsLikeC = data.weather.current?.feelslikeC,
+            feelsLikeF = data.weather.current?.feelslikeF,
+            humidity = data.weather.current?.humidity,
+            name = data.weather.location?.name,
             tempF = data.weather.current?.tempF,
             tempC = data.weather.current?.tempC,
-            condition = data.weather.current?.condition?.let { ConditionModel(it.code, it.icon, it.text) },
-            humidity = data.weather.current?.humidity,
-            uv = data.weather.current?.uv,
-            feelsLikeF = data.weather.current?.feelslikeF,
-            feelsLikeC = data.weather.current?.feelslikeC
+            uv = data.weather.current?.uv
         )
     }
 }

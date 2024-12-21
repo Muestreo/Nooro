@@ -1,36 +1,36 @@
 package com.kryptopass.nooro.feature.dashboard
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kryptopass.nooro.core.domain.repository.WeatherRepository
-import com.kryptopass.nooro.feature.dashboard.state.WeatherUiState
+import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
+import com.kryptopass.nooro.shared.common.state.MviViewModel
+import com.kryptopass.nooro.shared.common.state.UiSingleEvent
+import com.kryptopass.nooro.shared.common.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository
-): ViewModel() {
+    private val converter: WeatherConverter,
+    private val usecase: FetchWeatherByCityUseCase
+): MviViewModel<WeatherModel, UiState<WeatherModel>, WeatherUiAction, UiSingleEvent>() {
 
-    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Empty)
-    val uiState: StateFlow<WeatherUiState> = _uiState
+    override fun initState(): UiState<WeatherModel> = UiState.Empty
 
-    fun fetchWeather(region: String) {
+    override fun handleAction(action: WeatherUiAction) {
+        // NOTE: not needed now as SearchBar invokes fetching weather...
+    }
+
+    fun loadWeather(name: String) {
         viewModelScope.launch {
-            _uiState.value = WeatherUiState.Loading
-            try {
-                weatherRepository.getCurrentWeather(region).collect { response ->
-                    Log.d(TAG, "RESPONSE: $response")
-                    _uiState.value = WeatherUiState.Success(response)
+            usecase.execute(FetchWeatherByCityUseCase.Request(name))
+                .map {
+                    converter.convert(it)
                 }
-            } catch (e: Exception) {
-                Log.e(TAG, "FAILED TO FETCH WEATHER DATA: ${e.message}", e)
-                _uiState.value = WeatherUiState.Error("Failed to fetch weather data")
-            }
+                .collect {
+                    submitState(it)
+                }
         }
     }
 

@@ -10,14 +10,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.kryptopass.nooro.core.domain.entity.Weather
 import com.kryptopass.nooro.feature.dashboard.R
+import com.kryptopass.nooro.feature.dashboard.WeatherModel
 
 @Composable
-fun WeatherContent(weather: Weather) {
+fun WeatherContent(weatherModel: WeatherModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,28 +27,29 @@ fun WeatherContent(weather: Weather) {
         verticalArrangement = Arrangement.Center
     ) {
         AsyncImage(
-            model = "https:${weather.current?.condition?.icon}",
             contentDescription = "Weather Icon",
-            placeholder = painterResource(R.drawable.ic_placeholder),
+            contentScale = ContentScale.Fit,
             error = painterResource(R.drawable.ic_placeholder),
-            modifier = Modifier.size(128.dp)
+            model = "https:${weatherModel.condition?.icon}",
+            modifier = Modifier.size(128.dp),
+            placeholder = painterResource(R.drawable.ic_placeholder)
         )
 
         Text(
-            text = "${weather.location?.name}",
-            style = MaterialTheme.typography.headlineLarge
+            style = MaterialTheme.typography.headlineLarge,
+            text = "${weatherModel.name}",
         )
 
         Text(
-            text = "${weather.current?.tempC}°C",
+            modifier = Modifier.padding(vertical = 8.dp),
             style = MaterialTheme.typography.displayLarge,
-            modifier = Modifier.padding(vertical = 8.dp)
+            text = "${weatherModel.tempC}°C"
         )
 
         WeatherDetailsCard(
-            humidity = weather.current?.humidity ?: 0,
-            uvIndex = weather.current?.uv ?: 0.0,
-            feelsLikeTemp = weather.current?.feelslikeC ?: 0.0
+            feelsLikeTemp = weatherModel.feelsLikeF ?: 0.0,
+            humidity = weatherModel.humidity ?: 0,
+            uvIndex = weatherModel.uv ?: 0.0,
         )
     }
 }

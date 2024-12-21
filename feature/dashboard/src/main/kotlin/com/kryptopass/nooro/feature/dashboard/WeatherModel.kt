@@ -5,14 +5,12 @@ data class WeatherModel(
     val feelsLikeC: Double?,
     val feelsLikeF: Double?,
     val humidity: Int?,
-    val region: String?,
+    val name: String?,
     val tempC: Double?,
     val tempF: Double?,
     val uv: Double?,
 )
 
 data class ConditionModel(
-    val code: Int? = 0,
-    val icon: String? = "",
-    val text: String? = ""
+    val icon: String? = ""
 )

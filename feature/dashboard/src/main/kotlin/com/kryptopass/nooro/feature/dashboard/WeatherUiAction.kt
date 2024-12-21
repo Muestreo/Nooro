@@ -1,6 +1,6 @@
 package com.kryptopass.nooro.feature.dashboard
 
-import com.kryptopass.nooro.core.common.state.UiAction
+import com.kryptopass.nooro.shared.common.state.UiAction
 
 sealed class WeatherUiAction : UiAction {
 
