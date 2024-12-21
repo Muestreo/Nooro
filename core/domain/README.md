@@ -1,4 +1,4 @@
-# Domain Layer in Clean Architect
+# Domain Layer of Clean Architecture
 
 ## Kotlin Library
 

@@ -23,10 +23,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Nooro"
 include(":app")
-include(":core:data")
-include(":core:database")
 include(":core:domain")
-include(":core:network")
+include(":core:local")
+include(":core:remote")
+include(":core:repository")
 include(":feature:dashboard")
 include(":feature:search")
 include(":shared:common")
