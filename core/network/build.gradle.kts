@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.network)
     implementation(libs.hilt.android)
+    implementation(project(":core:database"))
 
     ksp(libs.hilt.compiler)
 

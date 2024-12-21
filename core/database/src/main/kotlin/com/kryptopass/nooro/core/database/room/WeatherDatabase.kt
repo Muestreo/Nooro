@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [ConditionEntity::class, WeatherEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(WeatherConverter::class)

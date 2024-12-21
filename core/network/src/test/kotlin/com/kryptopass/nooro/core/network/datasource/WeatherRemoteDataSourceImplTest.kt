@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.core.network.datasource
 
+import com.kryptopass.nooro.core.domain.entity.Condition
 import com.kryptopass.nooro.core.domain.entity.UseCaseException
 import com.kryptopass.nooro.core.domain.entity.Weather
 import com.kryptopass.nooro.core.network.model.Current
@@ -21,7 +22,7 @@ class WeatherRemoteDataSourceImplTest {
     private val dataSource = WeatherRemoteDataSourceImpl(service)
 
     private val apiKey = "1234567"
-    private val city = "London"
+    private val name = "London"
 
     @Test
     fun testGetCurrentWeather() = runTest {
@@ -43,40 +44,40 @@ class WeatherRemoteDataSourceImplTest {
                     lastUpdated = "2021-09-01 12:00"
                 ),
                 Location(
-                    country = "UK",
+                    country = "United Kingdom",
                     lat = 51.51,
                     lon = -0.13,
-                    name = "London",
-                    region = city
+                    name = name,
+                    region = "City of London, Greater London"
                 )
             )
 
         val expectedWeather =
             Weather(
                 com.kryptopass.nooro.core.domain.entity.Current(
-                    condition = null,
+                    condition = Condition(),
                     feelslikeC = 0.0,
                     feelslikeF = 0.0,
                     humidity = 0
                 ),
                 com.kryptopass.nooro.core.domain.entity.Location(
-                    country = "UK",
-                    name = "London",
-                    region = city
+                    country = "United Kingdom",
+                    name = name,
+                    region = "City of London, Greater London"
                 )
             )
 
-        whenever(service.getCurrentWeather(apiKey, city)).thenReturn(remoteWeatherResponse)
-        val result = dataSource.getCurrentWeather(city).first()
+        whenever(service.getCurrentWeather(apiKey, name)).thenReturn(remoteWeatherResponse)
+        val result = dataSource.getCurrentWeather(name).first()
 
         assertEquals(expectedWeather, result)
     }
 
     @Test
     fun testGetCurrentWeatherThrowsError() = runTest {
-        whenever(service.getCurrentWeather(apiKey, city)).thenThrow(RuntimeException())
+        whenever(service.getCurrentWeather(apiKey, name)).thenThrow(RuntimeException())
 
-        dataSource.getCurrentWeather(city).catch {
+        dataSource.getCurrentWeather(name).catch {
             assertTrue(it is UseCaseException.WeatherException)
         }
     }

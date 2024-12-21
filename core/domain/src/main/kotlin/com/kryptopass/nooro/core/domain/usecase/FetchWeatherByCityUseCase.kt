@@ -11,11 +11,11 @@ class FetchWeatherByCityUseCase(
 ) : UseCase<FetchWeatherByCityUseCase.Request, FetchWeatherByCityUseCase.Response>(configuration) {
 
     override fun process(request: Request): Flow<Response> =
-        weatherRepository.getWeather(request.city)
+        weatherRepository.getCurrentWeather(request.name)
             .map {
                 Response(it)
             }
 
-    data class Request(val city: String) : UseCase.Request
+    data class Request(val name: String) : UseCase.Request
     data class Response(val weather: Weather) : UseCase.Response
 }

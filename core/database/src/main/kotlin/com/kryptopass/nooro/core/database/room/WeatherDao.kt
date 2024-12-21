@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WeatherDao {
 
-    @Query("SELECT * FROM weather WHERE region = :region")
-    fun getWeatherByRegion(region: String): Flow<WeatherEntity>
+    @Query("SELECT * FROM weather WHERE name = :name")
+    fun getWeatherByCity(name: String): Flow<WeatherEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWeather(weatherEntity: WeatherEntity)

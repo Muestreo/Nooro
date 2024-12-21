@@ -4,5 +4,5 @@ import com.kryptopass.nooro.core.common.state.UiAction
 
 sealed class WeatherUiAction : UiAction {
 
-    data class Load(val city: String) : WeatherUiAction()
+    data class Load(val name: String) : WeatherUiAction()
 }
