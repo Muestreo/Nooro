@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.kryptopass.nooro.core.domain.entity.Weather
+import com.kryptopass.nooro.feature.dashboard.R
 
 @Composable
 fun WeatherContent(weather: Weather) {
@@ -20,19 +22,32 @@ fun WeatherContent(weather: Weather) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "City: ${weather.location?.name}",
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Text(text = "Temperature: ${weather.current?.tempC}°C")
-        Text(text = "Condition: ${weather.current?.condition?.text}")
         AsyncImage(
             model = "https:${weather.current?.condition?.icon}",
             contentDescription = "Weather Icon",
-            modifier = Modifier.size(64.dp)
+            placeholder = painterResource(R.drawable.ic_placeholder),
+            error = painterResource(R.drawable.ic_placeholder),
+            modifier = Modifier.size(128.dp)
+        )
+
+        Text(
+            text = "${weather.location?.name}",
+            style = MaterialTheme.typography.headlineLarge
+        )
+
+        Text(
+            text = "${weather.current?.tempC}°C",
+            style = MaterialTheme.typography.displayLarge,
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        WeatherDetailsCard(
+            humidity = weather.current?.humidity ?: 0,
+            uvIndex = weather.current?.uv ?: 0.0,
+            feelsLikeTemp = weather.current?.feelslikeC ?: 0.0
         )
     }
 }

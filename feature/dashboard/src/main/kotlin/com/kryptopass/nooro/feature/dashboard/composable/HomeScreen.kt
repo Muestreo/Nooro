@@ -2,7 +2,9 @@ package com.kryptopass.nooro.feature.dashboard.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
+        Spacer(modifier = Modifier.height(24.dp))
         SearchBar(onSearch = { name ->
             viewModel.fetchWeather(name)
         })

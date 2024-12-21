@@ -2,6 +2,7 @@ package com.kryptopass.nooro.feature.dashboard.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
             }
         },
-        singleLine = true
+        singleLine = true,
+        shape = RoundedCornerShape(16.dp)
     )
 }
