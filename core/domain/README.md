@@ -7,6 +7,16 @@
 
 ## Responsibilities
 
-- Use Cases: drive the application's business logic
-- Entities: represent the business objects
-- Repositories: abstractions of repositories for data access
+- Drives domain requirements via use cases
+- Contains pure Kotlin entities and abstracts repositories
+- No external dependencies (Kotlin Library)
+
+## Key Points
+
+- Use Case Structure
+    - each use case represents a single business action (e.g., `FetchWeatherByRegionUseCase`)
+    - use `invoke()` operator for concise use case execution
+- Repository Contracts
+    - clearly define repository abstractions
+- Testing
+    - easily testable

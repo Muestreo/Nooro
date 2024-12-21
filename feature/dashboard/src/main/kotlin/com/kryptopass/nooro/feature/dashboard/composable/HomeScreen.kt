@@ -20,9 +20,8 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // Search bar at the top
-        SearchBar(onSearch = { city ->
-            //viewModel.fetchWeather(city) // Fetch weather for the entered city
+        SearchBar(onSearch = { name ->
+            viewModel.fetchWeather(name)
         })
 
         Box(
@@ -34,21 +33,16 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
                 is WeatherUiState.Loading -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
-
                 is WeatherUiState.Empty -> {
                     EmptyStateContent()
                 }
-
                 is WeatherUiState.Success -> {
                     WeatherContent(weather = (uiState as WeatherUiState.Success).weather)
                 }
-
                 is WeatherUiState.Error -> {
                     ErrorScreen(
                         message = (uiState as WeatherUiState.Error).message,
-                        onRetry = {
-                            //viewModel.fetchWeather("London")
-                        }
+                        onRetry = { viewModel.fetchWeather("London") }
                     )
                 }
             }

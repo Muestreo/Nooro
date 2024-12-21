@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.core.data.repository
 
+import android.util.Log
 import com.kryptopass.nooro.core.data.datasource.WeatherLocalDataSource
 import com.kryptopass.nooro.core.data.datasource.WeatherRemoteDataSource
 import com.kryptopass.nooro.core.domain.entity.Weather
@@ -14,15 +15,30 @@ class WeatherRepositoryImpl(
     private val remoteDataSource: WeatherRemoteDataSource
 ) : WeatherRepository {
 
-    override fun getWeather(city: String): Flow<Weather> = flow {
-        val localWeather = localDataSource.getCurrentWeather(city).firstOrNull()
+    override fun getCurrentWeather(name: String): Flow<Weather> = flow {
+        try {
+            Log.d(TAG, "FETCH WEATHER FOR CITY: $name")
 
-        if (localWeather != null) {
-            emit(localWeather)
-        } else {
-            val remoteWeather = remoteDataSource.getCurrentWeather(city).first()
-            localDataSource.addCurrentWeather(remoteWeather)
-            emit(remoteWeather)
+            val localWeather = localDataSource.getCurrentWeather(name).firstOrNull()
+            if (localWeather != null) {
+                Log.d(TAG, "LOCAL WEATHER: $localWeather")
+                emit(localWeather)
+            } else {
+                Log.d(TAG, "LOCAL WEATHER NOT FOUND. FETCH FROM REMOTE.")
+                val remoteWeather = remoteDataSource.getCurrentWeather(name).first()
+                Log.d(TAG, "REMOTE WEATHER: $remoteWeather")
+
+                localDataSource.addCurrentWeather(remoteWeather)
+                Log.d(TAG, "REMOTE ADDED TO LOCAL.")
+                emit(remoteWeather)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "ERROR FETCHING WEATHER: ${e.message}", e)
+            throw e
         }
+    }
+
+    companion object {
+        private const val TAG = "WeatherRepositoryImpl"
     }
 }

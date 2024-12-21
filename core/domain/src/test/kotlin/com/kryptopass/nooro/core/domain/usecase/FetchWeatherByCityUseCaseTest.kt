@@ -25,7 +25,7 @@ class FetchWeatherByCityUseCaseTest {
         val request = FetchWeatherByCityUseCase.Request("Bellevue")
         val weather = Weather(
             current = Current(
-                condition = null,
+                condition = Condition(),
                 tempC = 0.0,
                 tempF = 32.0,
             ),
@@ -35,7 +35,7 @@ class FetchWeatherByCityUseCaseTest {
             )
         )
 
-        whenever(weatherRepository.getWeather(request.city)).thenReturn(flowOf(weather))
+        whenever(weatherRepository.getCurrentWeather(request.name)).thenReturn(flowOf(weather))
         val response = useCase.process(request).first()
 
         assertEquals(FetchWeatherByCityUseCase.Response(weather), response)

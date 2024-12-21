@@ -7,11 +7,13 @@ import com.kryptopass.nooro.core.domain.entity.Weather
 
 fun Weather.toEntity(): WeatherEntity {
     return WeatherEntity(
-        region = location?.region ?: "",
         condition = current?.condition?.toEntity(),
+        country = location?.country.orEmpty(),
         feelsLikeC = current?.feelslikeC,
         feelsLikeF = current?.feelslikeF,
         humidity = current?.humidity,
+        name = location?.name.orEmpty(),
+        region = location?.region.orEmpty(),
         tempC = current?.tempC,
         tempF = current?.tempF,
         uv = current?.uv
@@ -29,16 +31,22 @@ fun Condition.toEntity(): ConditionEntity {
 fun WeatherEntity.toDomain(): Weather {
     return Weather(
         current = Current(
-            condition = condition?.toDomain(),
-            feelslikeC = feelsLikeC,
-            feelslikeF = feelsLikeF,
-            humidity = humidity,
+            condition = condition?.toDomain() ?: Condition(
+                code = 0,
+                icon = "",
+                text = ""
+            ),
+            feelslikeC = feelsLikeC ?: 0.0,
+            feelslikeF = feelsLikeF ?: 0.0,
+            humidity = humidity ?: 0,
             region = region,
-            tempC = tempC,
-            tempF = tempF,
-            uv = uv
+            tempC = tempC ?: 0.0,
+            tempF = tempF ?: 0.0,
+            uv = uv ?: 0.0
         ),
         location = Location(
+            country = country,
+            name = name,
             region = region
         )
     )
@@ -46,8 +54,8 @@ fun WeatherEntity.toDomain(): Weather {
 
 fun ConditionEntity.toDomain(): Condition {
     return Condition(
-        code = code,
-        icon = icon,
-        text = text
+        code = code ?: 0,
+        icon = icon.orEmpty(),
+        text = text.orEmpty()
     )
 }
