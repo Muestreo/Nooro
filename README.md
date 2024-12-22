@@ -39,7 +39,7 @@
     - Unit (70%), Integration (20%), UI (10%) tests
     - Test Fixture pattern for test data
 - Paging for `n` cities
-- Improve UI/UX
+- Improve UI/UX, user preferences (i.e. Fahrenheit vs Celsius)
 - Definitely has potential for growth with many more features & complexity
 
 ## Conclusion
