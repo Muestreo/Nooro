@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,8 +16,15 @@ import com.kryptopass.nooro.feature.dashboard.WeatherViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
 
 @Composable
-fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
-    val uiState by viewModel.uiStateFlow.collectAsState()
+fun HomeScreen(
+    weatherViewModel: WeatherViewModel = hiltViewModel(),
+    onNavigateToSearch: (String) -> Unit
+) {
+    val uiState by weatherViewModel.uiStateFlow.collectAsState()
+
+    LaunchedEffect(Unit) {
+        weatherViewModel.loadPersistedCityWeather()
+    }
 
     Column(
         modifier = Modifier
@@ -25,13 +33,13 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        SearchBar(onSearch = { name ->
-            viewModel.loadWeather(name)
+        SearchBar(onSearch = { city ->
+            onNavigateToSearch(city)
         })
 
         CommonScreen(
             state = uiState,
-            onRetry = { viewModel.loadWeather("London") } // Retry action
+            onRetry = { weatherViewModel.loadPersistedCityWeather() }
         ) { model ->
             WeatherContent(model)
         }

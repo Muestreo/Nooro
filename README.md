@@ -48,5 +48,7 @@
     - but showcases understanding of this architecture
     - weather app has potential for growth and complexity
     - good foundation for scalability and many software principles (i.e. `x`-ability)
+    - also think it's a better fit for complex/enterprise systems
+        - in this scenario Android would fit in the presentation layer
 - MVVM is standard for Android projects
 - MVI is recommended practice on Android `Guide to app architecture` page

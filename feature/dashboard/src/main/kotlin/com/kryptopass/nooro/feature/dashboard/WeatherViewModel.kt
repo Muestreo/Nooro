@@ -1,7 +1,7 @@
 package com.kryptopass.nooro.feature.dashboard
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.kryptopass.nooro.core.domain.repository.CityDataStore
 import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
 import com.kryptopass.nooro.shared.common.state.MviViewModel
 import com.kryptopass.nooro.shared.common.state.UiSingleEvent
@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
+    private val cityDataStore: CityDataStore,
     private val converter: WeatherConverter,
     private val usecase: FetchWeatherByCityUseCase
 ): MviViewModel<WeatherModel, UiState<WeatherModel>, WeatherUiAction, UiSingleEvent>() {
@@ -22,21 +23,28 @@ class WeatherViewModel @Inject constructor(
     override fun handleAction(action: WeatherUiAction) {
         // NOTE: not needed now as SearchBar invokes fetching weather...
         //       use case for paging or list of cities
-        when (action) {
-            is WeatherUiAction.Load -> loadWeather(action.name)
+    }
+
+    fun loadPersistedCityWeather() {
+        viewModelScope.launch {
+            cityDataStore.getCity().collect { persistedCity ->
+                if (persistedCity.isNullOrEmpty()) {
+                    submitState(UiState.Empty)
+                } else {
+                    fetchWeather(persistedCity)
+                }
+            }
         }
     }
 
-    fun loadWeather(name: String) {
+    private fun fetchWeather(city: String) {
         viewModelScope.launch {
-            try {
-                usecase.execute(FetchWeatherByCityUseCase.Request(name))
-                    .map { converter.convert(it) }
-                    .collect { submitState(it) }
-            } catch (e: Exception) {
-                submitState(UiState.Error("Failed to load weather data"))
-                Log.e(TAG, "ERROR LOADING WEATHER: ${e.message}")
-            }
+            submitState(UiState.Loading) // Show loading state
+            usecase.execute(FetchWeatherByCityUseCase.Request(city))
+                .map { converter.convert(it) }
+                .collect { result ->
+                    submitState(result)
+                }
         }
     }
 
