@@ -3,6 +3,8 @@ package com.kryptopass.nooro.core.local.di
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
+import com.kryptopass.nooro.core.domain.repository.CityDataStore
+import com.kryptopass.nooro.core.local.datasource.CityDataStoreImpl
 import com.kryptopass.nooro.core.local.room.WeatherDao
 import com.kryptopass.nooro.core.local.room.WeatherDatabase
 import dagger.Module
@@ -14,7 +16,12 @@ import java.util.concurrent.Executors
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModule {
+object LocalModule {
+
+    @Provides
+    fun provideCityDataStore(
+        @ApplicationContext context: Context
+    ): CityDataStore = CityDataStoreImpl(context)
 
     @Provides
     fun provideWeatherDatabase(@ApplicationContext context: Context): WeatherDatabase =
@@ -34,7 +41,5 @@ class DatabaseModule {
     @Provides
     fun provideWeatherDao(database: WeatherDatabase): WeatherDao = database.weatherDao()
 
-    companion object {
-        private const val TAG = "DatabaseModule"
-    }
+    private const val TAG = "DatabaseModule"
 }

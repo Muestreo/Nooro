@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(project(":shared:common"))
 
+    implementation(libs.coil)
     implementation(libs.androidx.core.ktx)
 
     implementation(platform(libs.androidx.compose.bom))

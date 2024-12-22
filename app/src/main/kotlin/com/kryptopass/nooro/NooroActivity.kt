@@ -8,10 +8,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.kryptopass.nooro.feature.dashboard.composable.HomeScreen
+import com.kryptopass.nooro.feature.search.SearchScreen
 import com.kryptopass.nooro.shared.common.nav.HOME_SCREEN
 import com.kryptopass.nooro.shared.common.nav.SEARCH_SCREEN
 import com.kryptopass.nooro.ui.theme.NooroTheme
@@ -35,10 +38,23 @@ class NooroActivity : ComponentActivity() {
 fun App(navController: NavHostController) {
     NavHost(navController, startDestination = HOME_SCREEN) {
         composable(route = HOME_SCREEN) {
-            HomeScreen(hiltViewModel())
+            HomeScreen(
+                hiltViewModel(),
+                onNavigateToSearch = { city ->
+                    navController.navigate("$SEARCH_SCREEN?city=$city")
+                }
+            )
         }
-        composable(route = SEARCH_SCREEN) {
-            // SearchScreen(hiltViewModel())
+        composable(
+            route = "$SEARCH_SCREEN?city={city}",
+            arguments = listOf(navArgument("city") { type = NavType.StringType; defaultValue = "" })
+        ) { backStackEntry ->
+            val city = backStackEntry.arguments?.getString("city").orEmpty()
+            SearchScreen(
+                city = city,
+                onCitySelected = { navController.popBackStack() },
+                hiltViewModel()
+            )
         }
     }
 }
