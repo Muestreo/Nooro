@@ -22,8 +22,15 @@ class HomeViewModel @Inject constructor(
     override fun initState(): UiState<HomeModel> = UiState.Empty
 
     override fun handleAction(action: HomeUiAction) {
-        // NOTE: not needed now as SearchBar invokes fetching weather...
-        //       use case for paging or list of cities
+        when (action) {
+            is HomeUiAction.OnSearchBarEnterDoneItemClick -> {
+                submitSingleEvent(
+                    HomeUiSingleEvent.OpenSearchScreen(
+                        action.city
+                    )
+                )
+            }
+        }
     }
 
     fun fetchWeather(city: String) {

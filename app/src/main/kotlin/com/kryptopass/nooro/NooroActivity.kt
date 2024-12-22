@@ -36,12 +36,15 @@ class NooroActivity : ComponentActivity() {
 
 @Composable
 fun App(navController: NavHostController) {
-    NavHost(navController, startDestination = HOME_SCREEN) {
-        composable(route = HOME_SCREEN) {
+    NavHost(navController, startDestination = "$HOME_SCREEN?city={city}") {
+        composable(
+            route = "$HOME_SCREEN?city={city}",
+            arguments = listOf(navArgument("city") { type = NavType.StringType; defaultValue = "" })
+        ) {
             HomeScreen(
                 hiltViewModel(),
-                onNavigateToSearch = { city ->
-                    navController.navigate("$SEARCH_SCREEN?city=$city")
+                onNavigateToSearch = { name ->
+                    navController.navigate("$SEARCH_SCREEN?city=$name")
                 }
             )
         }
@@ -53,7 +56,11 @@ fun App(navController: NavHostController) {
             SearchScreen(
                 city = city,
                 hiltViewModel(),
-                onCitySelected = { navController.popBackStack() }
+                onCitySelected = { selectedCity ->
+                    navController.navigate("$HOME_SCREEN?city=$selectedCity") {
+                        popUpTo(HOME_SCREEN) { inclusive = true }
+                    }
+                }
             )
         }
     }

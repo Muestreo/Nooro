@@ -27,10 +27,21 @@ class SearchViewModel @Inject constructor(
     override fun initState(): UiState<SearchModel> = UiState.Loading
 
     override fun handleAction(action: SearchUiAction) {
-        // NOTE: not needed now as SearchBar invokes fetching weather...
-        //       use case for paging or list of cities
         when (action) {
-            is SearchUiAction.Load -> loadWeather(action.name)
+            is SearchUiAction.OnCityWeatherCardItemClick -> {
+                submitSingleEvent(
+                    SearchUiSingleEvent.BackToHomeScreen(
+                        action.searchModel.name
+                    )
+                )
+            }
+            is SearchUiAction.OnSearchBarEnterDoneItemClick -> {
+                submitSingleEvent(
+                    SearchUiSingleEvent.AddCityToCityList(
+                        action.city
+                    )
+                )
+            }
         }
     }
 

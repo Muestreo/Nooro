@@ -1,14 +1,11 @@
 package com.kryptopass.nooro.feature.home
 
-import android.content.Context
 import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
 import com.kryptopass.nooro.shared.common.state.CommonResultConverter
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class HomeConverter @Inject constructor(
-    @ApplicationContext private val context: Context
-) : CommonResultConverter<FetchWeatherByCityUseCase.Response, HomeModel>() {
+class HomeConverter @Inject constructor() :
+    CommonResultConverter<FetchWeatherByCityUseCase.Response, HomeModel>() {
 
     override fun convertSuccess(data: FetchWeatherByCityUseCase.Response): HomeModel {
         return HomeModel(

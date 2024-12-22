@@ -12,8 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kryptopass.nooro.feature.home.HomeUiAction
+import com.kryptopass.nooro.feature.home.HomeUiSingleEvent
 import com.kryptopass.nooro.feature.home.HomeViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun HomeScreen(
@@ -34,7 +37,11 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Top
     ) {
         HomeBar(onSearch = { city ->
-            onNavigateToSearch(city)
+            homeViewModel.submitAction(
+                HomeUiAction.OnSearchBarEnterDoneItemClick(
+                    city
+                )
+            )
         })
 
         CommonScreen(
@@ -42,6 +49,16 @@ fun HomeScreen(
             onRetry = { homeViewModel.loadPersistedCityWeather() }
         ) { model ->
             HomeContent(model)
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        homeViewModel.singleEventFlow.collectLatest { event ->
+            when (event) {
+                is HomeUiSingleEvent.OpenSearchScreen -> {
+                    onNavigateToSearch(event.city)
+                }
+            }
         }
     }
 }
