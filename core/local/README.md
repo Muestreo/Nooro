@@ -2,7 +2,7 @@
 
 ## Android Library
 
-- Android System dependencies for local persistence.
+- Android System Dependent
 
 ## Responsibilities
 

@@ -2,22 +2,22 @@
 
 ## Android Library
 
-- Android System Dependencies
+- Android System Dependent
 
-## Responsibilities
+## Cross-cutting concerns
 
-- Cross-cutting concerns
-    - Common Screens
-    - Navigation/Routing
-    - Logging
-    - Base State, ViewModel, Exception
+- Common Screens
+- Navigation/Routing
+- Logging
+- Base State
+- Base ViewModel
+- UseCase Exception
 
 ## Key Points
 
 - Error Handling
     - Use sealed classes or `Result` for standardized error propagation
 - Logging
-    - Use libraries like Timber for logging across layers
 - Threading
     - Use coroutines for asynchronous operations, e.g. `viewModelScope` for UI tasks,
       `Dispatchers.IO` for data operations
