@@ -2,10 +2,11 @@
 
 ## Setup Instructions
 
-- API KEY is set in local.properties
-    - `WEATHER_API_KEY`
-- build.gradle.kts enables BuildConfig
-    - `buildConfig = true`
+- Please set API Key in `local.properties`
+    - `WEATHER_API_KEY=your_api_key`
+- This is all that is need to run this app
+- `build.gradle.kts` in `:core:network` module manages this setup
+    - set `buildConfig = true`
     - `fetchWeatherApiKey` gets API KEY from local.properties
         - defined in `:core:network` module
     - `BuildConfig` sets API KEY for use in network call
@@ -16,7 +17,7 @@
 - MVVM distinct components for Model, View, and ViewModel
 - MVI unidirectional data/events flow
 - DI with Hilt
-- SOLID
+- SOLID Principles
 
 ## Choice of Tools
 

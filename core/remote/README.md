@@ -2,7 +2,7 @@
 
 ## Android Library
 
-- Android System dependencies for Networking
+- Android System Dependent
 
 ## Responsibilities
 

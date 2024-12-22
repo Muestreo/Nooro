@@ -2,7 +2,7 @@
 
 ## Android Library
 
-- Android System Dependencies
+- Android System Dependent
 
 ## Responsibilities
 

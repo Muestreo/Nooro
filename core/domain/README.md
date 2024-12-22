@@ -8,8 +8,7 @@
 ## Responsibilities
 
 - Drives domain requirements via use cases
-- Contains pure Kotlin entities and abstracts repositories
-- No external dependencies (Kotlin Library)
+- Contains pure Kotlin entities and abstract repositories
 
 ## Key Points
 

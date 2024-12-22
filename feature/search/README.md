@@ -1,5 +1,9 @@
 # Search Module in Presentation Layer of Clean Architecture
 
+## Android Library
+
+- Android System Dependent
+
 ## Behavior
 
 - Default State: Loading
