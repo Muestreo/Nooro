@@ -1,12 +1,25 @@
-package com.kryptopass.nooro.core.repository
+package com.kryptopass.nooro.feature.home
 
 import com.kryptopass.nooro.core.domain.entity.Weather
 
 object TestData {
 
-    // NOTE: duplicate in database & network tests,
-    // reason for testing patterns (i.e. Object Mother, Fixture, Fakes, etc.)
-    fun generateDomainWeatherModel(name: String): Weather {
+    fun generateHomeModel(city: String): HomeModel {
+        return HomeModel(
+            condition = ConditionModel(
+                icon = "//cdn.weatherapi.com/weather/64x64/night/119.png"
+            ),
+            feelsLikeC = 3.2,
+            feelsLikeF = 37.8,
+            humidity = 86,
+            name = city,
+            tempC = 6.1,
+            tempF = 43.1,
+            uv = 1.0
+        )
+    }
+
+    fun generateDomainWeatherModel(city: String): Weather {
         return Weather(
             com.kryptopass.nooro.core.domain.entity.Current(
                 condition = com.kryptopass.nooro.core.domain.entity.Condition(
@@ -23,7 +36,7 @@ object TestData {
             ),
             com.kryptopass.nooro.core.domain.entity.Location(
                 country = "United Kingdom",
-                name = name,
+                name = city,
                 region = "City of London, Greater London"
             )
         )

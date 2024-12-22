@@ -13,13 +13,9 @@ class SearchConverter @Inject constructor(
     override fun convertSuccess(data: FetchWeatherByCityUseCase.Response): SearchModel {
         return SearchModel(
             condition = data.weather.current?.condition?.let { ConditionModel(it.icon) },
-            feelsLikeC = data.weather.current?.feelslikeC,
-            feelsLikeF = data.weather.current?.feelslikeF,
-            humidity = data.weather.current?.humidity,
             name = data.weather.location?.name,
             tempF = data.weather.current?.tempF,
-            tempC = data.weather.current?.tempC,
-            uv = data.weather.current?.uv
+            tempC = data.weather.current?.tempC
         )
     }
 }

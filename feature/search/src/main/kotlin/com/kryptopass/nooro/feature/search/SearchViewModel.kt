@@ -48,7 +48,7 @@ class SearchViewModel @Inject constructor(
                         submitState(uiState)
                     }
             } catch (e: Exception) {
-                submitState(UiState.Error("Failed to load weather data"))
+                submitState(UiState.Error("NETWORK ERROR: Failed to load weather data"))
                 Log.e(TAG, "ERROR LOADING WEATHER: ${e.message}")
             }
         }
@@ -72,6 +72,6 @@ class SearchViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "WeatherViewModel"
+        private const val TAG = "SearchViewModel"
     }
 }

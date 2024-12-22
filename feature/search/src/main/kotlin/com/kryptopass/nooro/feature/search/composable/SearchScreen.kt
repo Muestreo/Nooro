@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kryptopass.nooro.feature.search.SearchModel
 import com.kryptopass.nooro.feature.search.SearchViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
-import com.kryptopass.nooro.shared.common.state.UiState
 
 @Composable
 fun SearchScreen(
@@ -51,10 +48,11 @@ fun SearchScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        SearchBar(onSearch = { searchedCity ->
-            searchViewModel.saveCity(searchedCity)
-            searchViewModel.loadWeather(searchedCity)
-        })
+        SearchBar(
+            onSearch = { searchedCity ->
+                searchViewModel.saveCity(searchedCity)
+                searchViewModel.loadWeather(searchedCity)
+            })
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -74,25 +72,6 @@ fun SearchScreen(
                     }
                 }
             }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {
-                val currentCity = if (uiState is UiState.Success) {
-                    (uiState as UiState.Success<SearchModel>).data
-                } else {
-                    null
-                }
-
-                if (currentCity != null) {
-                    searchViewModel.saveCity(currentCity.name ?: "")
-                    onCitySelected(currentCity)
-                }
-            }
-        ) {
-            Text("HOME SCREEN")
         }
     }
 }

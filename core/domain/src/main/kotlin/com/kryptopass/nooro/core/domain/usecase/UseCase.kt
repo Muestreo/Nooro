@@ -19,7 +19,11 @@ abstract class UseCase<I : UseCase.Request, O : UseCase.Response>(
         .flowOn(configuration.dispatcher.io)
         .catch { throwable ->
             val useCaseException = UseCaseException.createFromThrowable(throwable)
-            configuration.logger.e(TAG, "ERROR WITH USE CASE EXECUTE: ${useCaseException.message}", useCaseException)
+            configuration.logger.e(
+                TAG,
+                "ERROR WITH USE CASE EXECUTE: ${useCaseException.message}",
+                useCaseException
+            )
             emit(Result.Error(useCaseException))
         }
 

@@ -1,5 +1,6 @@
 package com.kryptopass.nooro.feature.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kryptopass.nooro.core.domain.repository.CityDataStore
 import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
@@ -16,13 +17,29 @@ class HomeViewModel @Inject constructor(
     private val cityDataStore: CityDataStore,
     private val converter: HomeConverter,
     private val usecase: FetchWeatherByCityUseCase
-): MviViewModel<HomeModel, UiState<HomeModel>, HomeUiAction, UiSingleEvent>() {
+) : MviViewModel<HomeModel, UiState<HomeModel>, HomeUiAction, UiSingleEvent>() {
 
     override fun initState(): UiState<HomeModel> = UiState.Empty
 
     override fun handleAction(action: HomeUiAction) {
         // NOTE: not needed now as SearchBar invokes fetching weather...
         //       use case for paging or list of cities
+    }
+
+    fun fetchWeather(city: String) {
+        viewModelScope.launch {
+            try {
+                submitState(UiState.Loading)
+                usecase.execute(FetchWeatherByCityUseCase.Request(city))
+                    .map { converter.convert(it) }
+                    .collect { result ->
+                        submitState(result)
+                    }
+            } catch (e: Exception) {
+                submitState(UiState.Error("NETWORK ERROR: Failed to load weather data"))
+                Log.e(TAG, "ERROR LOADING WEATHER: ${e.message}")
+            }
+        }
     }
 
     fun loadPersistedCityWeather() {
@@ -34,17 +51,6 @@ class HomeViewModel @Inject constructor(
                     fetchWeather(persistedCity)
                 }
             }
-        }
-    }
-
-    private fun fetchWeather(city: String) {
-        viewModelScope.launch {
-            submitState(UiState.Loading) // Show loading state
-            usecase.execute(FetchWeatherByCityUseCase.Request(city))
-                .map { converter.convert(it) }
-                .collect { result ->
-                    submitState(result)
-                }
         }
     }
 
