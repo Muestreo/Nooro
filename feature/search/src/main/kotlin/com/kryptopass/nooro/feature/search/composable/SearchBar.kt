@@ -37,13 +37,18 @@ fun SearchBar(onSearch: (String) -> Unit) {
             .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp)),
         maxLines = 1,
         trailingIcon = {
-            IconButton(onClick = { onSearch(searchQuery) }) {
+            IconButton(onClick = {
+                onSearch(searchQuery)
+                searchQuery = ""
+            }) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
             }
         },
         singleLine = true,
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.colors(
+            focusedTextColor = Color.Blue,
+            unfocusedTextColor = Color.Blue,
             focusedContainerColor = Color.LightGray,
             unfocusedContainerColor = Color.LightGray,
             disabledContainerColor = Color.LightGray,
@@ -57,6 +62,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
         keyboardActions = KeyboardActions(
             onDone = {
                 onSearch(searchQuery)
+                searchQuery = ""
             }
         )
     )

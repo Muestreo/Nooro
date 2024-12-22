@@ -52,8 +52,8 @@ fun App(navController: NavHostController) {
             val city = backStackEntry.arguments?.getString("city").orEmpty()
             SearchScreen(
                 city = city,
-                onCitySelected = { navController.popBackStack() },
-                hiltViewModel()
+                hiltViewModel(),
+                onCitySelected = { navController.popBackStack() }
             )
         }
     }

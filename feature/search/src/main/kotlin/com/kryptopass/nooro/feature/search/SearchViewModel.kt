@@ -8,6 +8,8 @@ import com.kryptopass.nooro.shared.common.state.MviViewModel
 import com.kryptopass.nooro.shared.common.state.UiSingleEvent
 import com.kryptopass.nooro.shared.common.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +20,9 @@ class SearchViewModel @Inject constructor(
     private val converter: SearchConverter,
     private val usecase: FetchWeatherByCityUseCase
 ) : MviViewModel<SearchModel, UiState<SearchModel>, SearchUiAction, UiSingleEvent>() {
+
+    private val _searchedCities = MutableStateFlow<List<SearchModel>>(emptyList())
+    val searchedCities: StateFlow<List<SearchModel>> = _searchedCities
 
     override fun initState(): UiState<SearchModel> = UiState.Loading
 
@@ -35,7 +40,13 @@ class SearchViewModel @Inject constructor(
                 submitState(UiState.Loading)
                 usecase.execute(FetchWeatherByCityUseCase.Request(name))
                     .map { converter.convert(it) }
-                    .collect { submitState(it) }
+                    .collect { uiState ->
+                        if (uiState is UiState.Success) {
+                            val searchModel = uiState.data
+                            addToSearchedCities(searchModel)
+                        }
+                        submitState(uiState)
+                    }
             } catch (e: Exception) {
                 submitState(UiState.Error("Failed to load weather data"))
                 Log.e(TAG, "ERROR LOADING WEATHER: ${e.message}")
@@ -47,6 +58,17 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             cityDataStore.saveCity(city)
         }
+    }
+
+    private fun addToSearchedCities(searchModel: SearchModel) {
+        Log.d(TAG, "UPSERT CITY: ${searchModel.name}")
+        _searchedCities.value = _searchedCities.value
+            .filterNot { it.name == searchModel.name }
+            .toMutableList()
+            .apply {
+                add(0, searchModel)
+            }
+        Log.d(TAG, "CITIES LIST: ${_searchedCities.value}")
     }
 
     companion object {
