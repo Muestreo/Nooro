@@ -19,15 +19,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kryptopass.nooro.feature.search.SearchModel
+import com.kryptopass.nooro.feature.search.SearchUiAction
+import com.kryptopass.nooro.feature.search.SearchUiSingleEvent
 import com.kryptopass.nooro.feature.search.SearchViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SearchScreen(
     city: String,
     searchViewModel: SearchViewModel = hiltViewModel(),
-    onCitySelected: (SearchModel) -> Unit
+    onCitySelected: (String) -> Unit
 ) {
     var initialCityProcessed by remember { mutableStateOf(false) }
     val uiState by searchViewModel.uiStateFlow.collectAsState()
@@ -50,9 +52,13 @@ fun SearchScreen(
     ) {
         SearchBar(
             onSearch = { searchedCity ->
-                searchViewModel.saveCity(searchedCity)
-                searchViewModel.loadWeather(searchedCity)
-            })
+                searchViewModel.submitAction(
+                    SearchUiAction.OnSearchBarEnterDoneItemClick(
+                        searchedCity
+                    )
+                )
+            }
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -68,8 +74,25 @@ fun SearchScreen(
                 items(searchedCities) { searchModel ->
                     SearchCityCard(searchModel) {
                         searchViewModel.saveCity(searchModel.name ?: "")
-                        onCitySelected(searchModel)
+                        searchViewModel.submitAction(
+                            SearchUiAction.OnCityWeatherCardItemClick(searchModel)
+                        )
                     }
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        searchViewModel.singleEventFlow.collectLatest { event ->
+            when (event) {
+                is SearchUiSingleEvent.BackToHomeScreen -> {
+                    searchViewModel.saveCity(event.city)
+                    onCitySelected(event.city)
+                }
+                is SearchUiSingleEvent.AddCityToCityList -> {
+                    searchViewModel.saveCity(event.city)
+                    searchViewModel.loadWeather(event.city)
                 }
             }
         }
