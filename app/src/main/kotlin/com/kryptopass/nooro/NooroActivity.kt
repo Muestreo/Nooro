@@ -17,7 +17,7 @@ import com.kryptopass.nooro.feature.home.composable.HomeScreen
 import com.kryptopass.nooro.feature.search.composable.SearchScreen
 import com.kryptopass.nooro.shared.common.nav.HOME_SCREEN
 import com.kryptopass.nooro.shared.common.nav.SEARCH_SCREEN
-import com.kryptopass.nooro.ui.theme.NooroTheme
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

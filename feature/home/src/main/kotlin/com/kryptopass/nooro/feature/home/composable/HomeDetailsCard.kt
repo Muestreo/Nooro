@@ -11,15 +11,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
 
 @Composable
-fun HomeDetailsCard(humidity: Int, uvIndex: Double, feelsLikeTemp: Double) {
+fun HomeDetailsCard(
+    humidity: Int,
+    uvIndex: Double,
+    feelsLikeTemp: Double
+) {
+    val backgroundColor = LocalComponentBackgroundColor.current
+
     Card(
         modifier = Modifier
             .padding(top = 16.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
         Row(
             modifier = Modifier

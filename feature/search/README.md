@@ -1,10 +1,9 @@
 # Search Module in Presentation Layer of Clean Architecture
 
-## Purpose
+## Behavior
 
-- Show list of cities searched
-
-## TODO
-
-- There's a lot of duplication with Home module
-- In interest of time leaving as is
+- Default State: Loading
+- Shows list of Card composables
+- Each item is short weather detail for city searched
+- Clicking Card navigates to HomeScreen with longer city weather details
+- Navigating to HomeScreen clears list

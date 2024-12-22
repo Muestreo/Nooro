@@ -1,8 +1,8 @@
 # Home Module in Presentation Layer of Clean Architecture
 
-## Purpose
+## Behavior
 
-- Load weather for last city persisted
-- Happens across app launches
-- If not city show empty state screen
-    - should only happen on app install or city data lost/corrupted in preferences data store
+- Default State: Empty
+- No persisted city: shows EmptyStateScreen
+- Loads persisted city details in HomeScreen
+- SearchBar entry navigates to SearchScreen

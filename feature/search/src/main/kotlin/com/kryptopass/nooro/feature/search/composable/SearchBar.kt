@@ -1,6 +1,5 @@
 package com.kryptopass.nooro.feature.search.composable
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,10 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
 
 @Composable
-fun SearchBar(onSearch: (String) -> Unit) {
+fun SearchBar(
+    onSearch: (String) -> Unit
+) {
     var searchQuery by remember { mutableStateOf("") }
+
+    val backgroundColor = LocalComponentBackgroundColor.current
 
     TextField(
         value = searchQuery,
@@ -33,8 +37,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
         placeholder = { Text(text = "Search for a city") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 16.dp)
-            .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp)),
+            .padding(vertical = 8.dp, horizontal = 16.dp),
         maxLines = 1,
         trailingIcon = {
             IconButton(onClick = {
@@ -47,11 +50,9 @@ fun SearchBar(onSearch: (String) -> Unit) {
         singleLine = true,
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.colors(
-            focusedTextColor = Color.Blue,
-            unfocusedTextColor = Color.Blue,
-            focusedContainerColor = Color.LightGray,
-            unfocusedContainerColor = Color.LightGray,
-            disabledContainerColor = Color.LightGray,
+            focusedContainerColor = backgroundColor,
+            unfocusedContainerColor = backgroundColor,
+            disabledContainerColor = backgroundColor,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent

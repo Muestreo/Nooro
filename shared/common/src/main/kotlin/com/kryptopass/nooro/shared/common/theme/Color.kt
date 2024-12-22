@@ -1,4 +1,4 @@
-package com.kryptopass.nooro.ui.theme
+package com.kryptopass.nooro.shared.common.theme
 
 import androidx.compose.ui.graphics.Color
 

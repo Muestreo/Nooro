@@ -21,16 +21,23 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.kryptopass.nooro.feature.search.R
 import com.kryptopass.nooro.feature.search.SearchModel
+import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
 
 @Composable
-fun SearchCityCard(searchModel: SearchModel, onClick: () -> Unit) {
+fun SearchCityCard(
+    searchModel: SearchModel,
+    onClick: () -> Unit
+) {
+    val backgroundColor = LocalComponentBackgroundColor.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onClick() },
         elevation = CardDefaults.cardElevation(4.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
         Row(
             modifier = Modifier
@@ -40,7 +47,7 @@ fun SearchCityCard(searchModel: SearchModel, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                modifier = Modifier.weight(1f), // Take up remaining horizontal space
+                modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
@@ -49,7 +56,7 @@ fun SearchCityCard(searchModel: SearchModel, onClick: () -> Unit) {
                 )
                 Text(
                     text = "${searchModel.tempF ?: "--"}°F",
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.headlineMedium
                 )
             }
 
