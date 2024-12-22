@@ -44,6 +44,8 @@ fun HomeBar(onSearch: (String) -> Unit) {
         singleLine = true,
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.colors(
+            focusedTextColor = Color.Blue,
+            unfocusedTextColor = Color.Blue,
             focusedContainerColor = Color.LightGray,
             unfocusedContainerColor = Color.LightGray,
             disabledContainerColor = Color.LightGray,
