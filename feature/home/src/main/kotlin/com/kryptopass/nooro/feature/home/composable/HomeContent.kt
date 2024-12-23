@@ -12,8 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.kryptopass.nooro.feature.home.ConditionModel
 import com.kryptopass.nooro.feature.home.HomeModel
 import com.kryptopass.nooro.feature.home.R
 
@@ -53,4 +55,23 @@ fun HomeContent(homeModel: HomeModel) {
             uvIndex = homeModel.uv ?: 0.0,
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeContentPreview() {
+    HomeContent(
+        HomeModel(
+            condition = ConditionModel(
+                icon = "//cdn.weatherapi.com/weather/64x64/day/113.png"
+            ),
+            feelsLikeC = 18.0,
+            feelsLikeF = 64.4,
+            humidity = 50,
+            name = "London",
+            tempC = 20.0,
+            tempF = 68.0,
+            uv = 2.0
+        )
+    )
 }

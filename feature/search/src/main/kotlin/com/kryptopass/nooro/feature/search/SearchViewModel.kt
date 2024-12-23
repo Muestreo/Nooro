@@ -83,6 +83,6 @@ class SearchViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "SearchViewModel"
+        private val TAG = SearchViewModel::class.java.simpleName
     }
 }

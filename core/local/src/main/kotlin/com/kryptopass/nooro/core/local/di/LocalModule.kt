@@ -41,5 +41,5 @@ object LocalModule {
     @Provides
     fun provideWeatherDao(database: WeatherDatabase): WeatherDao = database.weatherDao()
 
-    private const val TAG = "DatabaseModule"
+    private val TAG = LocalModule::class.java.simpleName
 }

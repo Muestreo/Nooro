@@ -42,6 +42,6 @@ class WeatherRepositoryImpl(
     }.flowOn(Dispatchers.IO)
 
     companion object {
-        private const val TAG = "WeatherRepositoryImpl"
+        private val TAG = WeatherRepositoryImpl::class.java.simpleName
     }
 }

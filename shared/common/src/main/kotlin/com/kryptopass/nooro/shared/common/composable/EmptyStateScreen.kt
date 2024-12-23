@@ -1,9 +1,10 @@
-package com.kryptopass.nooro.feature.home.composable
+package com.kryptopass.nooro.shared.common.composable
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,22 +15,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomeDetailItem(label: String, value: String) {
+fun EmptyStateScreen() {
     Column(
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(horizontal = 8.dp)
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            text = "No City Located",
+            style = MaterialTheme.typography.headlineLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(5.dp))
-
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = value,
-            style = MaterialTheme.typography.bodyLarge,
+            text = "Please Search For A City",
+            style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center
         )
     }
@@ -37,6 +38,6 @@ fun HomeDetailItem(label: String, value: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun HomeDetailItemPreview() {
-    HomeDetailItem(label = "Feels Like", value = "20°C")
+fun EmptyStateScreenPreview() {
+    EmptyStateScreen()
 }
