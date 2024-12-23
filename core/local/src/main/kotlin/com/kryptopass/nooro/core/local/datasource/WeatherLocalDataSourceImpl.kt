@@ -1,13 +1,13 @@
 package com.kryptopass.nooro.core.local.datasource
 
 import android.util.Log
-import com.kryptopass.nooro.core.repository.datasource.WeatherLocalDataSource
-import com.kryptopass.nooro.core.local.room.WeatherDao
-import com.kryptopass.nooro.core.local.room.WeatherEntity
-import com.kryptopass.nooro.core.local.room.toEntity
 import com.kryptopass.nooro.core.domain.entity.Current
 import com.kryptopass.nooro.core.domain.entity.Location
 import com.kryptopass.nooro.core.domain.entity.Weather
+import com.kryptopass.nooro.core.local.room.WeatherDao
+import com.kryptopass.nooro.core.local.room.WeatherEntity
+import com.kryptopass.nooro.core.local.room.toEntity
+import com.kryptopass.nooro.core.repository.datasource.WeatherLocalDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -63,6 +63,6 @@ class WeatherLocalDataSourceImpl @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "WeatherLocalDataSourceImpl"
+        private val TAG = WeatherLocalDataSourceImpl::class.java.simpleName
     }
 }

@@ -17,8 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.kryptopass.nooro.feature.search.ConditionModel
 import com.kryptopass.nooro.feature.search.R
 import com.kryptopass.nooro.feature.search.SearchModel
 import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
@@ -70,4 +72,20 @@ fun SearchCityCard(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SearchCityCardPreview() {
+    SearchCityCard(
+        searchModel = SearchModel(
+            condition = ConditionModel(
+                icon = "//cdn.weatherapi.com/weather/64x64/day/113.png"
+            ),
+            name = "London",
+            tempC = 20.0,
+            tempF = 70.0
+        ),
+        onClick = {}
+    )
 }

@@ -60,6 +60,6 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "WeatherRemoteDataSourceImpl"
+        private val TAG = WeatherRemoteDataSourceImpl::class.java.simpleName
     }
 }
