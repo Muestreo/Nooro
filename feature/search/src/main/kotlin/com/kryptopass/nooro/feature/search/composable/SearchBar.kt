@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 
 @Composable
 fun SearchBar(
@@ -73,5 +74,5 @@ fun SearchBar(
 @Preview(showBackground = true)
 @Composable
 fun SearchBarPreview() {
-    SearchBar(onSearch = {})
+    NooroTheme { SearchBar(onSearch = {}) }
 }

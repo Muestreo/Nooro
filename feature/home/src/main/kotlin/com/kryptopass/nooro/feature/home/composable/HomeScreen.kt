@@ -17,6 +17,7 @@ import com.kryptopass.nooro.feature.home.HomeUiAction
 import com.kryptopass.nooro.feature.home.HomeUiSingleEvent
 import com.kryptopass.nooro.feature.home.HomeViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -67,8 +68,10 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(
-        hiltViewModel(),
-        onNavigateToSearch = {}
-    )
+    NooroTheme {
+        HomeScreen(
+            hiltViewModel(),        // TODO: mock/fake classes
+            onNavigateToSearch = { }
+        )
+    }
 }

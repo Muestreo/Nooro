@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 
 @Composable
 fun HomeBar(onSearch: (String) -> Unit) {
@@ -67,5 +68,7 @@ fun HomeBar(onSearch: (String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun HomeBarPreview() {
-    HomeBar(onSearch = {})
+    NooroTheme {
+        HomeBar(onSearch = {})
+    }
 }
