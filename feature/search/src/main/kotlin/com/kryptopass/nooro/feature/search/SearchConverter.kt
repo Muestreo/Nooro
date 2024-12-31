@@ -4,7 +4,7 @@ import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
 import com.kryptopass.nooro.shared.common.state.CommonResultConverter
 import javax.inject.Inject
 
-class SearchConverter @Inject constructor() :
+open class SearchConverter @Inject constructor() :
     CommonResultConverter<FetchWeatherByCityUseCase.Response, SearchModel>() {
 
     override fun convertSuccess(data: FetchWeatherByCityUseCase.Response): SearchModel {
