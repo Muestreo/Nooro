@@ -13,9 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kryptopass.nooro.core.domain.services.NoOpLogger
+import com.kryptopass.nooro.core.domain.usecase.FetchWeatherByCityUseCase
+import com.kryptopass.nooro.core.domain.usecase.UseCase
 import com.kryptopass.nooro.feature.home.HomeUiAction
 import com.kryptopass.nooro.feature.home.HomeUiSingleEvent
 import com.kryptopass.nooro.feature.home.HomeViewModel
+import com.kryptopass.nooro.feature.home.mock.FakeHomeConverter
+import com.kryptopass.nooro.feature.home.mock.MockCityDataStore
+import com.kryptopass.nooro.feature.home.mock.MockWeatherRepository
+import com.kryptopass.nooro.shared.common.DefaultDispatcherProvider
 import com.kryptopass.nooro.shared.common.state.CommonScreen
 import com.kryptopass.nooro.shared.common.theme.NooroTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -68,10 +75,20 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    val mockUseCase = FetchWeatherByCityUseCase(
+        configuration = UseCase.Configuration(
+            dispatcher = DefaultDispatcherProvider(),
+            logger = NoOpLogger()
+        ),
+        weatherRepository = MockWeatherRepository()
+    )
+
+    val homeViewModel = HomeViewModel(MockCityDataStore(), FakeHomeConverter(), mockUseCase)
+
     NooroTheme {
         HomeScreen(
-            hiltViewModel(),        // TODO: mock/fake classes
-            onNavigateToSearch = { }
+            homeViewModel,
+            onNavigateToSearch = {}
         )
     }
 }
