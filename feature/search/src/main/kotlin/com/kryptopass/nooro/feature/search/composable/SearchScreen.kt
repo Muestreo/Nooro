@@ -20,12 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kryptopass.nooro.feature.search.SearchModel
 import com.kryptopass.nooro.feature.search.SearchUiAction
 import com.kryptopass.nooro.feature.search.SearchUiSingleEvent
 import com.kryptopass.nooro.feature.search.SearchViewModel
 import com.kryptopass.nooro.shared.common.state.CommonScreen
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -105,9 +104,11 @@ fun SearchScreen(
 @Preview(showBackground = true)
 @Composable
 fun SearchScreenPreview() {
-    SearchScreen(
-        city = "London",
-        searchViewModel = hiltViewModel(),
-        onCitySelected = { city -> println("City selected: $city") }
-    )
+    NooroTheme {
+        SearchScreen(
+            "London",
+            hiltViewModel(),      // TODO: mock/fake classes
+            onCitySelected = { city -> println("City selected: $city") }
+        )
+    }
 }

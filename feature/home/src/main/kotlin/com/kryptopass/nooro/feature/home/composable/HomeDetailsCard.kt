@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 
 @Composable
 fun HomeDetailsCard(
@@ -58,9 +59,11 @@ fun HomeDetailsCard(
 @Preview(showBackground = true)
 @Composable
 fun HomeDetailsCardPreview() {
-    HomeDetailsCard(
-        humidity = 50,
-        uvIndex = 5.0,
-        feelsLikeTemp = 20.0
-    )
+    NooroTheme {
+        HomeDetailsCard(
+            humidity = 50,
+            uvIndex = 5.0,
+            feelsLikeTemp = 20.0
+        )
+    }
 }
