@@ -24,6 +24,7 @@ import com.kryptopass.nooro.feature.search.ConditionModel
 import com.kryptopass.nooro.feature.search.R
 import com.kryptopass.nooro.feature.search.SearchModel
 import com.kryptopass.nooro.shared.common.theme.LocalComponentBackgroundColor
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 
 @Composable
 fun SearchCityCard(
@@ -77,15 +78,17 @@ fun SearchCityCard(
 @Preview(showBackground = true)
 @Composable
 fun SearchCityCardPreview() {
-    SearchCityCard(
-        searchModel = SearchModel(
-            condition = ConditionModel(
-                icon = "//cdn.weatherapi.com/weather/64x64/day/113.png"
+    NooroTheme {
+        SearchCityCard(
+            searchModel = SearchModel(
+                condition = ConditionModel(
+                    icon = "//cdn.weatherapi.com/weather/64x64/day/113.png"
+                ),
+                name = "London",
+                tempC = 20.0,
+                tempF = 70.0
             ),
-            name = "London",
-            tempC = 20.0,
-            tempF = 70.0
-        ),
-        onClick = {}
-    )
+            onClick = {}
+        )
+    }
 }

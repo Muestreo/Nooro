@@ -5,6 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kryptopass.nooro.shared.common.composable.EmptyStateScreen
 import com.kryptopass.nooro.shared.common.composable.ErrorScreen
 import com.kryptopass.nooro.shared.common.composable.LoadingScreen
+import com.kryptopass.nooro.shared.common.theme.NooroTheme
 
 @Composable
 fun <T : Any> CommonScreen(
@@ -37,8 +38,10 @@ fun <T : Any> CommonScreen(
 @Preview(showBackground = true)
 @Composable
 fun CommonScreenPreview() {
-    CommonScreen(
-        state = UiState.Empty,
-        onSuccess = {}
-    )
+    NooroTheme {
+        CommonScreen(
+            state = UiState.Empty,
+            onSuccess = {}
+        )
+    }
 }
